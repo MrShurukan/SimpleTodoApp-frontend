@@ -1,16 +1,30 @@
 const { createApp } = Vue
+const baseUrl = "http://localhost:5092";
 
 createApp({
+    created() {
+        fetch(`${baseUrl}/Todo/TodoList`)
+            .then(response => response.json())
+            .then(data => {
+                for (let i = 0; i < data.length; i++)
+                    data.isActive = false;
+
+                data[0].isActive = true;
+
+                this.tabs = data;
+            })
+
+    },
     data() {
         return {
-            tabs: [
+            tabs: [],/*[
                 {id: 1, name: "Покупки", isActive: true, todoItems: 
                     [{id: 1, text: "Это test todo!", isChecked: true}, 
                     {id: 2, text: "Это второй test todo!", isChecked: true}, 
                     {id: 3, text: "Третий todo!", isChecked: false}] }, 
                     
                 {id: 2, name: "Фигма", isActive: false, todoItems: []}, 
-                {id: 3, name: "Ещё одна вкладка", isActive: false, todoItems: []}],
+                {id: 3, name: "Ещё одна вкладка", isActive: false, todoItems: []}],*/
 
             newTodoItemText: ""
         }
@@ -36,45 +50,132 @@ createApp({
             return null;
         },
         addNewTab() {
-            this.tabs.forEach(tab => tab.isActive = false);
-            this.tabs.push({id: 0, name: "[Новая вкладка]", isActive: true, todoItems: []})
+            fetch(`${baseUrl}/Todo/Category`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: "[Новая вкладка]"})
+            })
+            .then(response => {
+                if (response.ok) {
+                    response.text().then(idString => {
+                        this.tabs.forEach(tab => tab.isActive = false);
+                        this.tabs.push({id: +idString, name: "[Новая вкладка]", isActive: true, todoItems: []})
+                    });
+                }
+            });
         },
         changeTabName(tab, event) {
-            tab.name = event.target.value;
+            fetch(`${baseUrl}/Todo/Category`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "id": tab.id,
+                    "name": event.target.value
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    tab.name = event.target.value;;
+                }
+            });
         },
-        changeTodoItemText(todoItem, newText) {
-            todoItem.text = newText;
+        changeTodoItemText(todoItem, event) {
+            fetch(`${baseUrl}/Todo/TodoItem`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "id": todoItem.id,
+                    "text": event.target.value
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    todoItem.text = event.target.value;
+                }
+            });
         },
         addTodoItem() {
             let tab = this.getSelectedTab();
             if (tab) {
-                tab.todoItems.push({id: 0, text: this.newTodoItemText, isChecked: false});
-                this.newTodoItemText = "";
+                fetch(`${baseUrl}/Todo/TodoItem`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        categoryId: tab.id,
+                        "text": this.newTodoItemText
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        response.text().then(idString => {
+                            tab.todoItems.push({id: +idString, text: this.newTodoItemText, isChecked: false});
+                            this.newTodoItemText = "";
+                        });
+                    }
+                });
             }
         },
         deleteTodoItem(todoItem) {
             let tab = this.getSelectedTab();
             if (tab) {
-                for (let i = tab.todoItems.length - 1; i >= 0; i--) {
-                    let todoItemInArray = tab.todoItems[i];
-                    if (todoItemInArray.id == todoItem.id) {
-                        tab.todoItems.splice(i, 1);
-                        break;
+                fetch(`${baseUrl}/Todo/TodoItem?todoItemId=${todoItem.id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
                     }
-                }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        for (let i = tab.todoItems.length - 1; i >= 0; i--) {
+                            let todoItemInArray = tab.todoItems[i];
+                            if (todoItemInArray.id == todoItem.id) {
+                                tab.todoItems.splice(i, 1);
+                                break;
+                            }
+                        }
+                    }
+                });
             }
         },
         deleteTab(tab) {
-            for (let i = this.tabs.length - 1; i >= 0; i--) {
-                let tabInArray = this.tabs[i];
-                if (tabInArray.id == tab.id) {
-                    this.tabs.splice(i, 1);
-                    break;
+            fetch(`${baseUrl}/Todo/Category?categoryId=${tab.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
                 }
-            }
+            })
+            .then(response => {
+                if (response.ok) {
+                    for (let i = this.tabs.length - 1; i >= 0; i--) {
+                        let tabInArray = this.tabs[i];
+                        if (tabInArray.id == tab.id) {
+                            this.tabs.splice(i, 1);
+                            break;
+                        }
+                    }
+                }
+            });
         },
         markTodoItem(todoItem) {
-            todoItem.isChecked = !todoItem.isChecked;
+            fetch(`${baseUrl}/Todo/MarkTodoItem?todoItemId=${todoItem.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    todoItem.isChecked = !todoItem.isChecked;
+                }
+            });
         }
     }
 }).mount('#app')

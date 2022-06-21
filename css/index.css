@@ -138,6 +138,8 @@ main > div {
     position: relative;
     bottom: 0;
     display: flex;
+    flex-basis: 10px;
+    flex-shrink: 1;
     box-sizing: border-box;
     width: 207px;
     height: 39px;

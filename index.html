@@ -37,7 +37,7 @@
                         </div>
                     </div>
 
-                    <input class="todo-item-text" :value="todoItem.text"></input>
+                    <input class="todo-item-text" :value="todoItem.text" @change="changeTodoItemText(todoItem, $event)"></input>
                     <span class="deleteTodoItem" @click.stop="deleteTodoItem(todoItem)">&cross;</span>
                 </div>
 
