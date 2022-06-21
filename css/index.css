@@ -160,11 +160,11 @@ main > div {
     transform: translate(0, calc(-50px + 39px));
 }
 
-.tab:hover > .main-text {
+.tab:hover > .main-text, .opened-tab > .main-text {
     color: #FFF5EF;
 }
 
-.openedTab {
+.opened-tab {
     background: #FF944F;
     height: 50px;
     transform: translate(0, calc(-50px + 39px));
