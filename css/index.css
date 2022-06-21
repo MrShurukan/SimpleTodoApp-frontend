@@ -164,6 +164,11 @@ main > div {
     color: #FFF5EF;
 }
 
+.main-text {
+    border: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
 .opened-tab {
     background: #FF944F;
     height: 50px;
@@ -284,4 +289,14 @@ main > div > section {
 
 .todo-item > input:focus {
     outline: none;
+}
+
+.deleteTab {
+    position: absolute;
+    right: 8px;
+    top: 13px;
+}
+
+.deleteTab:hover {
+    color: white
 }

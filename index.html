@@ -19,13 +19,18 @@
         <div>
             <div id="tabsBackground"></div>
             <div id="tabs">
-                <div v-for="tab in tabs" class="tab" :class="{ 'opened-tab': tab.isActive }" :title="tab.name"><span class="main-text">{{ tab.name }}</span></div>
-                <button id="addTabButton">+</button>
+                <div v-for="tab in tabs" class="tab" :class="{ 'opened-tab': tab.isActive }" 
+                    :title="tab.name" @click="selectTab(tab.id)">
+                    <input class="main-text" :value="tab.name" @change="changeTabName(tab, $event)"></input>
+
+                    <span class="deleteTab" @click.stop="deleteTab(tab)">&cross;</span>
+                </div>
+                <button id="addTabButton" @click="addNewTab">+</button>
             </div>
 
             <section>
-                <div class="todo-item" v-for="todoItem in tabs[0].todoItems">
-                    <div class="tickmark-block">
+                <div class="todo-item" v-for="todoItem in getSelectedTab()?.todoItems">
+                    <div class="tickmark-block" @click="markTodoItem(todoItem)">
                         <div class="tickmark-circle">
                             <div v-bind:class="{ 'tickmark-tick': true, 'hidden': !todoItem.isChecked }">
                             </div>
@@ -33,6 +38,15 @@
                     </div>
 
                     <input class="todo-item-text" :value="todoItem.text"></input>
+                </div>
+
+                <div class="todo-item">
+                    <div class="tickmark-block">
+                        <div class="tickmark-circle">
+                        </div>
+                    </div>
+
+                    <input class="todo-item-text" placeholder="Новый todo пункт" @change="addTodoItem" v-model="newTodoItemText"></input>
                 </div>
             </section>
         </div>
