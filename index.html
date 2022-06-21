@@ -38,6 +38,7 @@
                     </div>
 
                     <input class="todo-item-text" :value="todoItem.text"></input>
+                    <span class="deleteTodoItem" @click.stop="deleteTodoItem(todoItem)">&cross;</span>
                 </div>
 
                 <div class="todo-item">

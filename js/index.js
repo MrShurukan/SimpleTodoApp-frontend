@@ -52,8 +52,17 @@ createApp({
                 this.newTodoItemText = "";
             }
         },
-        deleteTodoItem() {
-
+        deleteTodoItem(todoItem) {
+            let tab = this.getSelectedTab();
+            if (tab) {
+                for (let i = tab.todoItems.length - 1; i >= 0; i--) {
+                    let todoItemInArray = tab.todoItems[i];
+                    if (todoItemInArray.id == todoItem.id) {
+                        tab.todoItems.splice(i, 1);
+                        break;
+                    }
+                }
+            }
         },
         deleteTab(tab) {
             for (let i = this.tabs.length - 1; i >= 0; i--) {

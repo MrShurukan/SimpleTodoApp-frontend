@@ -261,6 +261,7 @@ main > div > section {
 }
 
 .todo-item {
+    position: relative;
     width: 100%;
     height: 75px;
     margin-bottom: 10px;
@@ -278,7 +279,6 @@ main > div > section {
 .todo-item-text {
     font-size: 30px;
     display: inline-block;
-    width: calc(100% - 100px);
     line-height: 75px;
 }
 
@@ -299,4 +299,11 @@ main > div > section {
 
 .deleteTab:hover {
     color: white
+}
+
+.deleteTodoItem {
+    cursor: pointer;
+    position: absolute;
+    right: 2px;
+    top: 23px;
 }
