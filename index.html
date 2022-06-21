@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Todo App!</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <script src="/js/vue.global.js"></script>
+
+    <header>
+        <span id="textHeader">Todo list!</span>
+        <span id="subHeader">- Nice and Simple</span>
+    </header>
+
+    <main id="app">
+        <div>
+            <div id="tabsBackground"></div>
+            <div id="tabs">
+                <div v-for="tab in tabs" class="tab" :title="tab.name"><span class="main-text">{{ tab.name }}</span></div>
+                <button id="addTabButton">+</button>
+            </div>
+
+            <section>
+                <div class="todo-item">
+                    <div class="tickmark-block"><div class="tickmark-circle"><div class="tickmark-tick"></div></div></div>
+                    <input class="todo-item-text" value="Hi!"></input>
+                </div>
+                <div class="todo-item">
+                    <div class="tickmark-block"><div class="tickmark-circle"><div class="tickmark-tick"></div></div></div>
+                </div>
+                <div class="todo-item">
+                    <div class="tickmark-block"><div class="tickmark-circle"><div class="tickmark-tick hidden"></div></div></div>
+                </div>
+
+
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <span id="sideFooterText">Илья Завьялов: <a href="mailto:ilya.zavyalov0@gmail.com">ilya.zavyalov0@gmail.com</a></span>
+        <span id="yearText">2022</span>
+    </footer>
+    <script src="js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,287 @@
+@font-face {
+    font-family: 'Kite One';
+    src: url(/fonts/KiteOne-Regular.ttf) format("truetype");
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+
+    background-color: #FEFFFA;
+}
+
+header {
+    position: absolute;
+    width: 100%;
+    height: 89px;
+    left: 0;
+    top: 0;
+
+    background: #3BA3D0;
+    border-radius: 0 0 13px 13px;
+}
+
+footer {
+    position: absolute;
+    width: 100%;
+    height: 53px;
+    left: 0;
+    bottom: 0;
+
+    background: #FFC35E;
+    border-radius: 8px 8px 0 0;
+}
+
+#textHeader {
+    position: absolute;
+    left: 29px;
+    top: 1px;
+
+    font-family: 'Kite One';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 87px;
+    /* identical to box height */
+
+    color: #024C68;
+}
+
+#subHeader {
+    position: absolute;
+    right: 21px;
+    top: 21px;
+
+    font-family: 'Kite One';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 46px;
+
+    color: #024C68;
+}
+
+#sideFooterText {
+    position: absolute;
+    left: 13px;
+    bottom: 15px;
+
+    font-family: 'Kite One';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+
+    color: #BF8A30;
+}
+
+a {
+    color: #1579D4
+}
+
+#yearText {
+    position: absolute;
+    right: 21px;
+    bottom: 13px;
+
+    font-family: 'Kite One';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+    /* identical to box height */
+
+    color: #BF8A30;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main > div {
+    position: relative;
+    width: 1007px;
+    height: 570px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.25);
+    border-radius: 12px 12px 0px 0px;
+}
+
+#tabsBackground, #tabs {
+    height: 39px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#tabsBackground {
+    background: #FFE5D5;
+    border-radius: 12px 12px 0px 0px;
+}
+
+#tabs {
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+.tab {
+    position: relative;
+    bottom: 0;
+    display: flex;
+    box-sizing: border-box;
+    width: 207px;
+    height: 39px;
+    padding: 0 10px;
+
+    justify-content: center;
+    align-content: center;
+
+    background: #FFB07D;
+    border: 1px solid #C9C9C9;
+    border-radius: 12px 12px 0px 0px;
+
+    transition: height 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.tab:hover {
+    background: #FF944F;
+    cursor: pointer;
+    height: 50px;
+    transform: translate(0, calc(-50px + 39px));
+}
+
+.tab:hover > .main-text {
+    color: #FFF5EF;
+}
+
+.openedTab {
+    background: #FF944F;
+    height: 50px;
+    transform: translate(0, calc(-50px + 39px));
+}
+
+#addTabButton {
+    align-self: center;
+    margin-left: 5px;
+    margin-right: 8px;
+    width: 30px;
+    height: 28px;
+
+    border-radius: 100px;
+    border: 0;
+    transition: box-shadow 0.2s;
+
+    background: #B4DAEA;
+}
+
+#addTabButton:hover {
+    cursor: pointer;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.tab > .main-text {
+    vertical-align: middle;
+    line-height: normal;
+    text-align: center;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    font-family: 'Kite One';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 22px;
+
+    color: #7C3100;
+}
+
+main > div > section {
+    position: relative;
+    height: calc(100% - 39px - 40px);
+    padding: 20px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.tickmark-block {
+    position: relative;
+    top: 5px;
+    display: inline-block;
+    width: 50px;
+    height: 52px;
+}
+
+.tickmark-block:hover {
+    cursor: pointer;
+}
+
+.tickmark-circle {
+    position: absolute;
+    left: 4px;
+    bottom: 0;
+    width: 30px;
+    height: 30px;
+    
+    margin-left: 5px;
+
+    background-image: url(/img/ellipse.png);
+}
+
+.tickmark-tick {
+    position: absolute;
+    bottom: 7px;
+    left: -1px;
+    width: 37px;
+    height: 42px;
+
+    background-image: url(/img/tick.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.hidden {
+    display: none;
+}
+
+.todo-item {
+    width: 100%;
+    height: 75px;
+    margin-bottom: 10px;
+
+    border: 1px solid #ffffff;
+    border-radius: 7px;
+    transition: border 0.1s;
+}
+
+.todo-item:hover {
+    border: 1px solid #D7D7D7;
+    border-radius: 7px;
+}
+
+.todo-item-text {
+    font-size: 30px;
+    display: inline-block;
+    width: calc(100% - 100px);
+    line-height: 75px;
+}
+
+.todo-item > input {
+    border: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.todo-item > input:focus {
+    outline: none;
+}
